@@ -6,6 +6,33 @@
 // Use any tools we've practiced such as promises, destructuring, etc.
 // Once everything works, upload the file and submit.
 
+const fetch = require('node-fetch')
+
+let keys = 'd486859ffa0e558e3d1b7adb1934c988'
+
+let city = 'Baltimore'
+
+let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keys}`
+
+fetch(url)
+.then((data) => data.json())
+.then((newData) => {
+    newData = newData.weather
+    newData.forEach(({description, id}) => {
+        const areaCode = id
+        
+        const printOut = 
+        `Location : ${areaCode} 
+Forecast : ${description}
+        `
+
+        console.log(printOut)
+                        
+    })
+    
+    
+})
+
 
 // // Weather API- https://openweathermap.org/api
 // // Weather/Air Quality API-  https://www.airvisual.com/dashboard/api
