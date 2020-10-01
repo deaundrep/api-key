@@ -8,30 +8,47 @@
 
 const fetch = require('node-fetch')
 
+
 let keys = 'd486859ffa0e558e3d1b7adb1934c988'
 
-let city = 'Baltimore'
+let city = 'New York'
 
-let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keys}`
+let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${keys}`
+
+const niceDay = ['😎']
+const coldDay = ['😨']
 
 fetch(url)
 .then((data) => data.json())
 .then((newData) => {
-    newData = newData.weather
-    newData.forEach(({description, id}) => {
-        const areaCode = id
+const  newData1 = newData.weather
+const getTemp = newData.main.temp
+if(getTemp >= 65){
+    console.log(`Its nice out today! ${niceDay}`)
+} else {
+        console.log(`You might need a jacket! ${coldDay}`)
+}
+const todayLow = newData.main.temp_min
+const todayHigh = newData.main.temp_max
+const itFeelsLike = newData.main.feels_like
+    newData1.forEach(({description, id}) => {
+        
         
         const printOut = 
-        `Location : ${areaCode} 
+        `City ID : ${id} 
+Temp : ${getTemp}
+Todays High : ${todayHigh}
+Todays Low : ${todayLow}
+It Feels Like : ${itFeelsLike}
 Forecast : ${description}
         `
-
         console.log(printOut)
+        
                         
     })
     
     
-})
+    })
 
 
 // // Weather API- https://openweathermap.org/api
